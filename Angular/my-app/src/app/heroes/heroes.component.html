@@ -1,0 +1,12 @@
+<h2>My heroes</h2>
+<ul class="heroes">
+  <li *ngFor="let hero of heroes"> <!-- The *ngFor is Angular's repeater directive. It repeats the host element for each element in a list. -->
+    <button [class.selected]="hero === selectedHero" type="button" (click)="onSelect(hero)"> <!-- it is better for accessibility purposes to use natively interactive HTML elements (e.g. <button>) instead of adding event listeners to non-interactive ones (e.g. <li>). -->
+      <!-- Angular's class binding can add and remove a CSS class conditionally. Add [class.some-css-class]="some-condition" to the element you want to style.  -->
+      <span class="badge">{{hero.id}}</span>
+      <span class="name">{{hero.name}}</span>
+    </button>
+  </li>
+</ul>
+
+<app-hero-detail [hero]="selectedHero"></app-hero-detail> <!-- The hero property must be an Input property, annotated with the @Input() decorator, because the external HeroesComponent will bind to it like this. -->
