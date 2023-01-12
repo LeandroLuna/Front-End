@@ -1,0 +1,11 @@
+<div *ngIf="!id; then createMode else editMode"></div>
+<ng-template #createMode>
+    <p>
+        Creation mode!
+    </p>
+</ng-template>
+<ng-template #editMode>
+    <p>
+        Edit mode!
+    </p>
+</ng-template>
