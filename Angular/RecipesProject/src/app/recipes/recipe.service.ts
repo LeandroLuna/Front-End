@@ -8,14 +8,16 @@ import { Subject } from 'rxjs';
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
 
-  private recipes: Recipe[] = [
-    new Recipe('A test recipe', 'This is a simply test', 'https://www.foodandwine.com/thmb/gE_M3yiTJCgZPKSOEVmjQowKv9E=/750x0/filters:no_upscale():max_bytes(150000):strip_icc()/Tamarind-Chicken-FT-RECIPE0522-80072d93f7bc4bc7abf1dcf5b5317b0c.jpg', [new Ingredient('Potato', 5), new Ingredient('Chicken', 1)]),
-    new Recipe('A test recipe - 2', 'This is a simply test - 2', 'https://www.foodandwine.com/thmb/gE_M3yiTJCgZPKSOEVmjQowKv9E=/750x0/filters:no_upscale():max_bytes(150000):strip_icc()/Tamarind-Chicken-FT-RECIPE0522-80072d93f7bc4bc7abf1dcf5b5317b0c.jpg', [new Ingredient('Fish', 2), new Ingredient('Orange', 3)])
-  ]
+  // private recipes: Recipe[] = [
+  //   new Recipe('A test recipe', 'This is a simply test', 'https://www.foodandwine.com/thmb/gE_M3yiTJCgZPKSOEVmjQowKv9E=/750x0/filters:no_upscale():max_bytes(150000):strip_icc()/Tamarind-Chicken-FT-RECIPE0522-80072d93f7bc4bc7abf1dcf5b5317b0c.jpg', [new Ingredient('Potato', 5), new Ingredient('Chicken', 1)]),
+  //   new Recipe('A test recipe - 2', 'This is a simply test - 2', 'https://www.foodandwine.com/thmb/gE_M3yiTJCgZPKSOEVmjQowKv9E=/750x0/filters:no_upscale():max_bytes(150000):strip_icc()/Tamarind-Chicken-FT-RECIPE0522-80072d93f7bc4bc7abf1dcf5b5317b0c.jpg', [new Ingredient('Fish', 2), new Ingredient('Orange', 3)])
+  // ]
+
+  private recipes: Recipe[] = [];
 
   constructor(private shoppingListService: ShoppingListService) { }
 
-  getRecipeslist(){
+  getRecipesList(){
     return this.recipes.slice();
   }
 
@@ -41,5 +43,10 @@ export class RecipeService {
   deleteRecipe(index: number){
     this.recipes.splice(index, 1);
     this.recipesChanged.next(this.recipes.slice());
+  }
+
+  setRecipes(recipes: Recipe[]){
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice())
   }
 }
