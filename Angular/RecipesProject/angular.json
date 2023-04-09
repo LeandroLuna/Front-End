@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/recipes-project",
+            "outputPath": "dist/RecipesProject/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -98,6 +98,65 @@
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/RecipesProject/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ],
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "RecipesProject:build:development",
+              "serverTarget": "RecipesProject:server:development"
+            },
+            "production": {
+              "browserTarget": "RecipesProject:build:production",
+              "serverTarget": "RecipesProject:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "RecipesProject:build:production",
+              "serverTarget": "RecipesProject:server:production"
+            },
+            "development": {
+              "browserTarget": "RecipesProject:build:development",
+              "serverTarget": "RecipesProject:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
